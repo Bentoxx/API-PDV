@@ -1,84 +1,90 @@
-## API de Ponto de Venda (PDV) - NestJS, Prisma, PostgreSQL, Docker
-Descrição
-Este projeto é uma API para um sistema de Ponto de Venda (PDV) desenvolvida com NestJS, utilizando Prisma como ORM e PostgreSQL como banco de dados. A API permite o gerenciamento de usuários, produtos, categorias, clientes e pedidos, além de fornecer autenticação via JWT. Ela foi desenvolvida com as melhores práticas de segurança, escalabilidade e desempenho, e é totalmente integrada com Docker para facilitar o desenvolvimento e o deploy.
+# API de Ponto de Venda (PDV) - NestJS, Prisma, PostgreSQL, Docker
 
-Tecnologias Utilizadas
-Typescript - Linguagem utilizada no projeto.
-NestJS - Framework Node.js para construção de APIs escaláveis e robustas.
-Prisma - ORM para interagir com o banco de dados de maneira intuitiva e segura.
-PostgreSQL - Banco de dados relacional utilizado para persistência de dados.
-JWT - Token para autenticação segura dos usuários.
-Docker - Containerização do ambiente para garantir consistência entre desenvolvimento e produção.
-BCrypt - Biblioteca para criptografia de senhas.
-Funcionalidades
+## Descrição
+
+Este projeto é uma **API** para um sistema de Ponto de Venda (PDV) desenvolvida com **NestJS**, utilizando **Prisma** como ORM e **PostgreSQL** como banco de dados. A API permite o gerenciamento de usuários, produtos, categorias, clientes e pedidos, além de fornecer autenticação via **JWT**. Ela foi desenvolvida com as melhores práticas de segurança, escalabilidade e desempenho, e é totalmente integrada com **Docker** para facilitar o desenvolvimento e o deploy.
+
+## Tecnologias Utilizadas
+
+- **Typescript** - Linguagem utilizada no projeto.
+- **NestJS** - Framework Node.js para construção de APIs escaláveis e robustas.
+- **Prisma** - ORM para interagir com o banco de dados de maneira intuitiva e segura.
+- **PostgreSQL** - Banco de dados relacional utilizado para persistência de dados.
+- **JWT** - Token para autenticação segura dos usuários.
+- **Docker** - Containerização do ambiente para garantir consistência entre desenvolvimento e produção.
+- **BCrypt** - Biblioteca para criptografia de senhas.
+
+## Funcionalidades
+
 A API oferece as seguintes funcionalidades principais:
 
-Usuários:
+- **Usuários**:
+  - Cadastro de novos usuários.
+  - Login de usuários com autenticação JWT.
+  - Atualização de perfil e redefinição de senha.
+  
+- **Categorias**:
+  - Listagem de categorias previamente cadastradas.
 
-Cadastro de novos usuários.
-Login de usuários com autenticação JWT.
-Atualização de perfil e redefinição de senha.
-Categorias:
+- **Produtos**:
+  - CRUD de produtos com integração a categorias.
+  - Upload de imagens de produtos.
+  - Validação de estoque e exclusão segura (não permite exclusão de produtos vinculados a pedidos).
 
-Listagem de categorias previamente cadastradas.
-Produtos:
+- **Clientes**:
+  - CRUD de clientes com validação de e-mail e CPF únicos.
+  
+- **Pedidos**:
+  - Cadastro de pedidos com múltiplos produtos e cálculo automático do valor total.
 
-CRUD de produtos com integração a categorias.
-Upload de imagens de produtos.
-Validação de estoque e exclusão segura (não permite exclusão de produtos vinculados a pedidos).
-Clientes:
+## Pré-requisitos
 
-CRUD de clientes com validação de e-mail e CPF únicos.
-Pedidos:
-
-Cadastro de pedidos com múltiplos produtos e cálculo automático do valor total.
-Pré-requisitos
 Antes de começar, você precisará ter as seguintes ferramentas instaladas:
 
-Node.js - Versão 16.x ou superior.
-Docker - Para rodar o ambiente de desenvolvimento em containers.
-PostgreSQL - Caso queira rodar o banco de dados localmente.
-Instalação
-Passos para rodar o projeto:
-Clone este repositório:
+- [Node.js](https://nodejs.org/en/) - Versão 16.x ou superior.
+- [Docker](https://www.docker.com/) - Para rodar o ambiente de desenvolvimento em containers.
+- [PostgreSQL](https://www.postgresql.org/) - Caso queira rodar o banco de dados localmente.
 
-bash
-Copiar código
-git clone https://github.com/seuusuario/seuprojeto.git
-cd seuprojeto
-Crie um arquivo .env baseado no .env.example:
+## Instalação
 
-bash
-Copiar código
-cp .env.example .env
-Configure suas variáveis de ambiente no arquivo .env (ex: configuração do banco de dados, JWT secret, etc.).
+### Passos para rodar o projeto:
 
-Inicie os containers Docker:
+1. Clone este repositório:
+   ```bash
+   git clone https://github.com/seuusuario/seuprojeto.git
+   cd seuprojeto
+   ```
 
-bash
-Copiar código
-docker-compose up -d
-Instale as dependências do projeto:
+2. Crie um arquivo .env baseado no .env.example:
+  ```bash
+  cp .env.example .env
+  ```
+3. Configure suas variáveis de ambiente no arquivo .env (ex: configuração do banco de dados, JWT secret, etc.).
 
-bash
-Copiar código
-npm install
-Execute as migrações do Prisma para criar o esquema do banco de dados:
+4. Inicie os containers Docker:
+  ```bash
+  docker-compose up -d
+  ```
 
-bash
-Copiar código
-npx prisma migrate dev
-Inicie a aplicação:
+5. Instale as dependências dos projeto:
+  ```bash
+  npm install
+  ````
 
-bash
-Copiar código
-npm run start:dev
-Estrutura de Arquivos
+6. Execute as migrações do Prisma para criar o esquema do banco de dados:
+  ```bash
+  npx prisma migrate dev
+  ````
+
+7. Inicie a aplicação:
+  ```bash
+  npm run start:dev
+  ```
+
+###Estrutura de Arquivos
 Abaixo está uma visão geral da estrutura de arquivos do projeto:
-
-bash
-Copiar código
-.
+  ```bash
+  .
 ├── src
 │   ├── app.module.ts            # Módulo principal da aplicação
 │   ├── main.ts                  # Arquivo de entrada da aplicação
@@ -103,6 +109,7 @@ Copiar código
 ├── Dockerfile                   # Dockerfile da aplicação
 ├── package.json                 # Configurações e dependências do Node.js
 └── README.md                    # Documentação do projeto
+````
 Endpoints
 Autenticação
 POST /login
@@ -153,28 +160,6 @@ Lista todos os pedidos cadastrados.
 Segurança
 Autenticação JWT: Todos os endpoints (exceto login e cadastro) exigem um token JWT válido.
 BCrypt: Todas as senhas são criptografadas antes de serem armazenadas no banco de dados.
-Testes
-Rodar Testes Unitários
-Para rodar os testes unitários:
-
-bash
-Copiar código
-npm run test
-Rodar Testes de Integração
-Para rodar os testes de integração:
-
-bash
-Copiar código
-npm run test:e2e
-Deploy
-Build da aplicação:
-
-bash
-Copiar código
-npm run build
-Crie e configure um servidor (Heroku, AWS, etc.) com Docker e PostgreSQL.
-
-Utilize o docker-compose.yml para criar os serviços de forma automática no servidor de produção.
 
 Contribuição
 Contribuições são bem-vindas! Por favor, siga os passos abaixo:
