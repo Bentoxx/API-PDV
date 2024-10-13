@@ -169,3 +169,6 @@ Crie uma branch para sua feature (git checkout -b feature/nova-feature).
 Commit suas alterações (git commit -m 'Adiciona nova feature').
 Envie sua branch para o repositório remoto (git push origin feature/nova-feature).
 Abra um Pull Request.
+
+Licença
+Este projeto está licenciado sob a Licença MIT
